@@ -4,30 +4,19 @@ function createLoginTracker(userInfo) {
   return (passwordAttempt) => {
     attemptCount++;
 
-    if (
-      passwordAttempt === userInfo.password &&
-      attemptCount < 3
-    ) {
-      return "login successful";
-    }
-
     if (attemptCount > 3) {
-      return "account locked due to too many failed login attempts";
+      return "Account locked due to too many failed login attempts";
     }
 
-    return `attempt ${attemptCount}: login failed`;
+    if (passwordAttempt === userInfo.password) {
+      return "Login successful";
+    } else {
+      return `Attempt ${attemptCount}: Login failed`;
+    }
   };
 }
 
 module.exports = {
   ...(typeof createLoginTracker !== 'undefined' && { createLoginTracker })
-};  
-
-
-
-
-
-};  
-
-
+};
 
